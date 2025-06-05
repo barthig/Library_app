@@ -1,0 +1,353 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+
+' =====================
+'        MODELS
+' =====================
+package "Models" {
+    class Book {
+        - id: int
+        - title: string
+        - isbn: string
+        - publication_year: int
+        - author_id: int
+        - total_copies: int
+        - available_copies: int
+        + __construct(id: int, title: string, isbn: string, publication_year: int, author_id: int, total_copies: int, available_copies: int)
+        + getId(): int
+        + getTitle(): string
+        + getIsbn(): string
+        + getPublicationYear(): int
+        + getAuthorId(): int
+        + getTotalCopies(): int
+        + getAvailableCopies(): int
+        + setAvailableCopies(count: int): void
+    }
+
+    class Author {
+        - id: int
+        - first_name: string
+        - last_name: string
+        - birth_date: string
+        - country: string
+        + __construct(id: int, first_name: string, last_name: string, birth_date: string, country: string)
+        + getId(): int
+        + getFullName(): string
+        + getBirthDate(): string
+        + getCountry(): string
+    }
+
+    class Member {
+        - id: int
+        - first_name: string
+        - last_name: string
+        - email: string
+        - card_number: string
+        - username: string
+        - role: string
+        + __construct(id: int, first_name: string, last_name: string, email: string, card_number: string, username: string, role: string)
+        + getId(): int
+        + getFirstName(): string
+        + getLastName(): string
+        + getEmail(): string
+        + getCardNumber(): string
+        + getUsername(): string
+        + getRole(): string
+    }
+
+    class Loan {
+        - id: int
+        - member_id: int
+        - book_id: int
+        - loan_date: string
+        - due_date: string
+        - return_date: string
+        - fine_amount: float
+        + __construct(id: int, member_id: int, book_id: int, loan_date: string, due_date: string, return_date: string, fine_amount: float)
+        + getId(): int
+        + getMemberId(): int
+        + getBookId(): int
+        + getLoanDate(): string
+        + getDueDate(): string
+        + getReturnDate(): string
+        + getFineAmount(): float
+        + setReturnDate(date: string): void
+        + calculateFine(): float
+    }
+
+    class Database {
+        - host: string
+        - dbname: string
+        - user: string
+        - password: string
+        + getConfig(): array
+    }
+}
+
+' Associations between Models (with multiplicities)
+Book "0..*" --> "1" Author : author_id
+Loan "0..*" --> "1" Book : book_id
+Loan "0..*" --> "1" Member : member_id
+
+' =====================
+'     REPOSITORIES
+' =====================
+package "Repositories" {
+    interface BookRepositoryInterface {
+        + findById(id: int): Book
+        + findAll(): Book[]
+        + save(book: Book): void
+        + update(book: Book): void
+        + delete(id: int): void
+    }
+
+    class BookRepository {
+        - connection: PDO
+        + __construct()
+        + findById(id: int): Book
+        + findAll(): Book[]
+        + save(book: Book): void
+        + update(book: Book): void
+        + delete(id: int): void
+    }
+
+    interface AuthorRepositoryInterface {
+        + findById(id: int): Author
+        + findAll(): Author[]
+        + save(author: Author): void
+        + update(author: Author): void
+        + delete(id: int): void
+    }
+
+    class AuthorRepository {
+        - connection: PDO
+        + __construct()
+        + findById(id: int): Author
+        + findAll(): Author[]
+        + save(author: Author): void
+        + update(author: Author): void
+        + delete(id: int): void
+    }
+
+    interface MemberRepositoryInterface {
+        + findById(id: int): Member
+        + findAll(): Member[]
+        + save(member: Member): void
+        + update(member: Member): void
+        + delete(id: int): void
+    }
+
+    class MemberRepository {
+        - connection: PDO
+        + __construct()
+        + findById(id: int): Member
+        + findAll(): Member[]
+        + save(member: Member): void
+        + update(member: Member): void
+        + delete(id: int): void
+    }
+
+    interface LoanRepositoryInterface {
+        + findById(id: int): Loan
+        + findAll(): Loan[]
+        + save(loan: Loan): void
+        + update(loan: Loan): void
+        + delete(id: int): void
+    }
+
+    class LoanRepository {
+        - connection: PDO
+        + __construct()
+        + findById(id: int): Loan
+        + findAll(): Loan[]
+        + save(loan: Loan): void
+        + update(loan: Loan): void
+        + delete(id: int): void
+    }
+
+    abstract class Repository {
+        - connection: PDO
+        + __construct()
+        + getConnection(): PDO
+    }
+}
+
+' Inheritance and Implementation
+BookRepositoryInterface <|.. BookRepository
+AuthorRepositoryInterface <|.. AuthorRepository
+MemberRepositoryInterface <|.. MemberRepository
+LoanRepositoryInterface <|.. LoanRepository
+
+BookRepository --|> Repository
+AuthorRepository --|> Repository
+MemberRepository --|> Repository
+LoanRepository --|> Repository
+
+Repository ..> Database
+
+' =====================
+'      FACTORIES
+' =====================
+package "Factories" {
+    class BookFactory {
+        + create(data: array): Book
+    }
+
+    class FineStrategyFactory {
+        + make(type: string): FineStrategyInterface
+    }
+}
+
+BookFactory --> Book
+FineStrategyFactory --> FineStrategyInterface
+
+' =====================
+'      SERVICES
+' =====================
+package "Services" {
+    interface FineStrategyInterface {
+        + calculate(daysLate: int): float
+    }
+
+    class FixedRateFine {
+        + calculate(daysLate: int): float
+    }
+
+    class DailyRateFine {
+        + calculate(daysLate: int): float
+    }
+
+    class LoanService {
+        - loanRepo: LoanRepositoryInterface
+        - bookRepo: BookRepositoryInterface
+        - fineFactory: FineStrategyFactory
+        + __construct(loanRepo: LoanRepositoryInterface, bookRepo: BookRepositoryInterface, fineFactory: FineStrategyFactory)
+        + createLoan(memberId: int, bookId: int, dueDate: string): void
+        + returnLoan(loanId: int, returnDate: string): void
+    }
+}
+
+LoanService ..> LoanRepositoryInterface
+LoanService ..> BookRepositoryInterface
+LoanService --> FineStrategyInterface
+
+' =====================
+'     CONTROLLERS
+' =====================
+package "Controllers" {
+    class BaseController {
+        + __construct()
+        + render(view: string, data: array): void
+    }
+
+    class BookController {
+        - bookRepo: BookRepositoryInterface
+        - authorRepo: AuthorRepositoryInterface
+        + __construct(bookRepo: BookRepositoryInterface, authorRepo: AuthorRepositoryInterface)
+        + index(): void
+        + show(id: int): void
+        + create(): void
+        + store(data: array): void
+        + edit(id: int): void
+        + update(id: int, data: array): void
+        + delete(id: int): void
+    }
+
+    class AuthorController {
+        - authorRepo: AuthorRepositoryInterface
+        + __construct(authorRepo: AuthorRepositoryInterface)
+        + index(): void
+        + show(id: int): void
+        + create(): void
+        + store(data: array): void
+        + edit(id: int): void
+        + update(id: int, data: array): void
+        + delete(id: int): void
+    }
+
+    class MemberController {
+        - memberRepo: MemberRepositoryInterface
+        - loanRepo: LoanRepositoryInterface
+        + __construct(memberRepo: MemberRepositoryInterface, loanRepo: LoanRepositoryInterface)
+        + index(): void
+        + show(id: int): void
+        + create(): void
+        + store(data: array): void
+        + edit(id: int): void
+        + update(id: int, data: array): void
+        + delete(id: int): void
+    }
+
+    class LoanController {
+        - loanRepo: LoanRepositoryInterface
+        - bookRepo: BookRepositoryInterface
+        + __construct(loanRepo: LoanRepositoryInterface, bookRepo: BookRepositoryInterface)
+        + index(): void
+        + show(id: int): void
+        + create(): void
+        + store(data: array): void
+        + return(id: int): void
+    }
+
+    class AdminController {
+        + __construct()
+        + dashboard(): void
+    }
+
+    class AuthController {
+        + __construct()
+        + login(): void
+        + logout(): void
+    }
+
+    class HomeController {
+        + __construct()
+        + index(): void
+    }
+}
+
+BookController ..> BookRepositoryInterface
+BookController ..> AuthorRepositoryInterface
+AuthorController ..> AuthorRepositoryInterface
+MemberController ..> MemberRepositoryInterface
+MemberController ..> LoanRepositoryInterface
+LoanController ..> LoanRepositoryInterface
+LoanController ..> BookRepositoryInterface
+
+AuthorController --|> BaseController
+BookController --|> BaseController
+MemberController --|> BaseController
+LoanController --|> BaseController
+AdminController --|> BaseController
+AuthController --|> BaseController
+HomeController --|> BaseController
+
+' =====================
+'    INFRASTRUCTURE
+' =====================
+class Container {
+    - bindings: Map<string, string>
+    + bind(interface: string, concrete: string): void
+    + make(interface: string): object
+}
+
+class Router {
+    - routes: Map<string, callable>
+    + register(method: string, path: string, action: callable): void
+    + resolve(method: string, path: string): void
+}
+
+Container ..> BookRepositoryInterface
+Container ..> AuthorRepositoryInterface
+Container ..> MemberRepositoryInterface
+Container ..> LoanRepositoryInterface
+
+Router ..> BookController
+Router ..> AuthorController
+Router ..> MemberController
+Router ..> LoanController
+Router ..> AdminController
+Router ..> AuthController
+Router ..> HomeController
+@enduml
