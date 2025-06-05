@@ -1,10 +1,3 @@
--- ================================================================
--- Script: init.sql
--- Description: Full script initializing the library database –
---              creates tables, indexes, functions, triggers, views and
---              inserts sample data (including assigning authors to books).
--- ================================================================
-
 BEGIN;
 
 -- ------------------------------------------------------------------------
@@ -19,7 +12,7 @@ DROP TABLE IF EXISTS authors CASCADE;
 -- ------------------------------------------------------------------------
 -- 1. Extensions
 -- ------------------------------------------------------------------------
--- We use pgcrypto to hash passwords in the members table
+-- I use pgcrypto to hash passwords in the members table
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 -- ------------------------------------------------------------------------
@@ -28,18 +21,18 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 -- 2.1. Authors table
 CREATE TABLE authors (
-    id SERIAL PRIMARY KEY,            -- unique author ID
-    first_name VARCHAR(100) NOT NULL, -- author first name
-    last_name VARCHAR(100) NOT NULL,  -- author last name
-    birth_date DATE,                  -- birth date (optional)
-    country VARCHAR(100)              -- country of origin (optional)
+    id SERIAL PRIMARY KEY,            
+    first_name VARCHAR(100) NOT NULL, 
+    last_name VARCHAR(100) NOT NULL,  
+    birth_date DATE,                  
+    country VARCHAR(100)              
 );
 
 -- 2.2. Books table
 CREATE TABLE books (
-    id SERIAL PRIMARY KEY,                          -- unique book ID
-    title VARCHAR(255) NOT NULL,                    -- book title
-    isbn VARCHAR(20) NOT NULL UNIQUE,               -- ISBN number
+    id SERIAL PRIMARY KEY,                          
+    title VARCHAR(255) NOT NULL,                    
+    isbn VARCHAR(20) NOT NULL UNIQUE,               
     publication_year INT NOT NULL CHECK (publication_year > 0), 
     total_copies INT    NOT NULL DEFAULT 1 CHECK (total_copies >= 0),
     available_copies INT NOT NULL DEFAULT 1 CHECK (available_copies >= 0 AND available_copies <= total_copies)
@@ -56,15 +49,15 @@ CREATE TABLE book_author (
 
 -- 2.4. Library members table
 CREATE TABLE members (
-    id SERIAL PRIMARY KEY,                  -- unique member ID
-    first_name VARCHAR(100)    NOT NULL,    -- first name
-    last_name VARCHAR(100)     NOT NULL,    -- last name
+    id SERIAL PRIMARY KEY,                  
+    first_name VARCHAR(100)    NOT NULL,    
+    last_name VARCHAR(100)     NOT NULL,    
     email VARCHAR(150)         NOT NULL UNIQUE, 
     username VARCHAR(50)       NOT NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL,    -- hashed password
+    password_hash VARCHAR(255) NOT NULL,    
     card_number VARCHAR(50)    NOT NULL UNIQUE, 
     registered_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    role VARCHAR(50)          NOT NULL DEFAULT 'user'  -- role (admin or user)
+    role VARCHAR(50)          NOT NULL DEFAULT 'user'  
 );
 
 -- 2.5. Loans table
@@ -72,9 +65,9 @@ CREATE TABLE loans (
     id SERIAL PRIMARY KEY, 
     member_id INT NOT NULL, 
     book_id   INT NOT NULL, 
-    loan_date DATE NOT NULL DEFAULT CURRENT_DATE,  -- loan date
-    due_date  DATE NOT NULL,                       -- return deadline
-    return_date DATE,                              -- return date (NULL = still borrowed)
+    loan_date DATE NOT NULL DEFAULT CURRENT_DATE,  
+    due_date  DATE NOT NULL,                       
+    return_date DATE,                              
     fine_amount NUMERIC(10,2) NOT NULL DEFAULT 0 CHECK (fine_amount >= 0),
     FOREIGN KEY (member_id) REFERENCES members(id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (book_id)   REFERENCES books(id)   ON DELETE CASCADE ON UPDATE CASCADE,
