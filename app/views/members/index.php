@@ -1,17 +1,6 @@
 <?php
 // Path: app/views/members/index.php
-include __DIR__ . '/../../components/header.php';
-$this->checkAuth();
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Member List</title>
-    <link rel="stylesheet" href="/styles.css">
-</head>
-<body>
-<div class="container">
 <h1>Members</h1>
 
 <?php if (!empty($_SESSION['errors'])): ?>
@@ -62,10 +51,8 @@ $this->checkAuth();
         </tr>
     <?php endforeach; ?>
     </tbody>
+
 </table>
 <?php else: ?>
     <p class="no-data">No members found.</p>
 <?php endif; ?>
-</div>
-</body>
-</html>

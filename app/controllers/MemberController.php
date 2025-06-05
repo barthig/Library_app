@@ -34,6 +34,7 @@ class MemberController extends BaseController
         $flash = $_SESSION['flash'] ?? null;
         unset($_SESSION['flash']);
 
+        include __DIR__ . '/../components/header.php';
         include __DIR__ . '/../views/members/index.php';
     }
 
@@ -49,6 +50,7 @@ class MemberController extends BaseController
         $oldInput = $_SESSION['old_input'] ?? []; // so the form can be prefilled
         unset($_SESSION['errors'], $_SESSION['old_input']);
 
+        include __DIR__ . '/../components/header.php';
         include __DIR__ . '/../views/members/create.php';
     }
 
@@ -159,6 +161,7 @@ class MemberController extends BaseController
         // Retrieve the loan history
         $history = $this->loanRepo->findByMember($id);
 
+        include __DIR__ . '/../components/header.php';
         include __DIR__ . '/../views/members/show.php';
     }
 
@@ -184,6 +187,7 @@ class MemberController extends BaseController
         $oldInput = $_SESSION['old_input'] ?? [];
         unset($_SESSION['errors'], $_SESSION['old_input']);
 
+        include __DIR__ . '/../components/header.php';
         include __DIR__ . '/../views/members/edit.php';
     }
 

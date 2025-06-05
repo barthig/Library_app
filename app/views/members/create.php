@@ -1,16 +1,6 @@
 <?php
 // Path: app/views/members/create.php
-$this->checkAuth('admin');
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add Member</title>
-    <link rel="stylesheet" href="/styles.css">
-</head>
-<body>
-<div class="container">
 <h1>Add New Member</h1>
 
 <?php if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'): ?>
@@ -50,6 +40,3 @@ $this->checkAuth('admin');
     </label><br>
     <button type="submit">Save</button>
 </form>
-</div>
-</body>
-</html>
