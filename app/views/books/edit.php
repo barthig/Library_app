@@ -1,14 +1,6 @@
 <?php
 // Path: app/views/books/edit.php
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Edit Book</title>
-    <link rel="stylesheet" href="/styles.css">
-</head>
-<body>
 <div class="container">
     <nav style="margin-bottom: 24px;">
         <a href="/books">Books</a> |
@@ -95,5 +87,3 @@
         <a href="/books">Back to Book list</a>
     </p>
 </div>
-</body>
-</html>

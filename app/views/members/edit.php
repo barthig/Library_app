@@ -1,16 +1,6 @@
 <?php
 // Path: app/views/members/edit.php
-$this->checkAuth('admin');
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Edit Member</title>
-    <link rel="stylesheet" href="/styles.css">
-</head>
-<body>
-<div class="container">
 <h1>Edit Member</h1>
 
 <?php if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'): ?>
@@ -48,6 +38,3 @@ $this->checkAuth('admin');
     </label><br>
     <button type="submit">Update</button>
 </form>
-</div>
-</body>
-</html>

@@ -1,16 +1,6 @@
 <?php
 // Path: app/views/members/show.php
-$this->checkAuth();
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Member Details</title>
-    <link rel="stylesheet" href="/styles.css">
-</head>
-<body>
-<div class="container">
 <h1>Member Details</h1>
 
 <p>
@@ -96,10 +86,7 @@ $historyReturned = array_filter($history ?? [], function($loan) {
 <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
 <!-- Add admin-specific options here -->
 <?php endif; ?>
-</div>
 
 <p>
     <a href="/members">Back to Members list</a>
 </p>
-</body>
-</html>

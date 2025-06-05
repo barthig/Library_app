@@ -1,14 +1,6 @@
 <?php
 // Path: app/views/loans/edit.php
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Edit Loan</title>
-    <link rel="stylesheet" href="/styles.css">
-</head>
-<body>
 <h1>Edit Loan #<?= htmlspecialchars($loan->getId(), ENT_QUOTES, 'UTF-8') ?></h1>
 
 <?php if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'): ?>
@@ -40,5 +32,4 @@
     <button type="submit">Update</button>
 </form>
 <p><a href="/loans">Back to Loans list</a></p>
-</body>
-</html>
+

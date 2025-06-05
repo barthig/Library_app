@@ -1,14 +1,6 @@
 <?php
 // Path: app/views/books/create.php
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add New Book</title>
-    <link rel="stylesheet" href="/styles.css">
-</head>
-<body>
 <div class="container">
     <nav style="margin-bottom: 24px;">
         <a href="/books">Books</a> |
@@ -75,5 +67,3 @@
         <a href="/books">Back to book list</a>
     </p>
 </div>
-</body>
-</html>
