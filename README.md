@@ -52,7 +52,7 @@ System został zrealizowany w oparciu o wzorce projektowe i architektoniczne pro
 ---
 
 ## 3. Architektura systemu
-System został zaimplementowany w języku PHP 8.x z użyciem prostego frameworka własnej konstrukcji, opierając się na wzorcu **MVC (Model-View-Controller)**. Całość uruchamiana jest w kontenerach Docker (nginx + PHP-FPM + MySQL).
+System został zaimplementowany w języku PHP 8.x z użyciem prostego frameworka własnej konstrukcji, opierając się na wzorcu **MVC (Model-View-Controller)**. Całość uruchamiana jest w kontenerach Docker (nginx + PHP-FPM + PostgreSQL).
 
 ### 3.1. Warstwa modelu (Model)
 - **Klasy encji**:  
@@ -62,7 +62,7 @@ System został zaimplementowany w języku PHP 8.x z użyciem prostego frameworka
   - `Loan` – reprezentuje wypożyczenie (pola: id, member_id, book_id, data_wypożyczenia, data_zwrotu, kara).
 
 - **Klasa `Database`** (Singleton lub poprzez kontener DI):  
-  - Zapewnia pojedyncze połączenie PDO z bazą MySQL (parametry połączenia pobierane z pliku `.env` lub stałych w kodzie).  
+  - Zapewnia pojedyncze połączenie PDO z bazą PostgreSQL (parametry połączenia pobierane z pliku `.env` lub stałych w kodzie).  
   - Metody do przygotowywania i wykonywania zapytań SQL.
 
 ### 3.2. Warstwa dostępu do danych (Repository)
@@ -131,7 +131,7 @@ Projekt jest podzielony na kilka głównych katalogów:
 * **docker-compose.yml** – definicja usług Docker Compose.
 
 ## 6. Diagram UML klas
-![uml](docs/uml.svg "diagram uml")
+![UML](docs/uml.svg "diagram UML")
 W katalogu `docs/uml.svg` znajduje się pełny diagram UML obrazujący relacje pomiędzy klasami:
 - Relacje dziedziczenia:  
   - `BookRepository` dziedziczy po `Repository`.  
