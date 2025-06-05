@@ -1,13 +1,7 @@
 <?php
 // Path: app/views/books/edit.php
 ?>
-<div class="container">
-    <nav style="margin-bottom: 24px;">
-        <a href="/books">Books</a> |
-        <a href="/authors">Authors</a> |
-        <a href="/members">Members</a> |
-        <a href="/loans">Loans</a>
-    </nav>
+
 
     <h1>Edit Book</h1>
 
@@ -86,4 +80,4 @@
     <p>
         <a href="/books">Back to Book list</a>
     </p>
-</div>
+
