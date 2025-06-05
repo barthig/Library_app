@@ -40,3 +40,6 @@
     </label><br>
     <button type="submit">Save</button>
 </form>
+<p>
+        <a href="/members">Back to member list</a>
+    </p>

@@ -1,13 +1,6 @@
 <?php
 // Path: app/views/books/create.php
 ?>
-<div class="container">
-    <nav style="margin-bottom: 24px;">
-        <a href="/books">Books</a> |
-        <a href="/authors">Authors</a> |
-        <a href="/members">Members</a> |
-        <a href="/loans">Loans</a>
-    </nav>
 
     <h1>Add New Book</h1>
 
@@ -66,4 +59,3 @@
     <p>
         <a href="/books">Back to book list</a>
     </p>
-</div>

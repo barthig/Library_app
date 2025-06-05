@@ -54,4 +54,7 @@
 
     <button type="submit">Create</button>
 </form>
+<p>
+        <a href="/loans">Back to loan list</a>
+    </p>
 

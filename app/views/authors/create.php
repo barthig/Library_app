@@ -30,3 +30,6 @@
     </label><br>
     <button type="submit">Save</button>
 </form>
+<p>
+        <a href="/authors">Back to authors list</a>
+    </p>
