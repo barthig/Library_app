@@ -1,4 +1,4 @@
-# Projekt: System Zarządzania Biblioteką „Library-1”
+# Projekt: System Zarządzania Biblioteką „Library_app”
 
 ## 1. Cel projektu
 Celem projektu jest stworzenie kompletnego systemu informatycznego do zarządzania biblioteką, który umożliwia:
@@ -131,6 +131,7 @@ Projekt jest podzielony na kilka głównych katalogów:
 * **docker-compose.yml** – definicja usług Docker Compose.
 
 ## 6. Diagram UML klas
+![uml](docs/uml.svg "diagram uml")
 W katalogu `docs/uml.svg` znajduje się pełny diagram UML obrazujący relacje pomiędzy klasami:
 - Relacje dziedziczenia:  
   - `BookRepository` dziedziczy po `Repository`.  
@@ -149,7 +150,12 @@ Aby uruchomic system lokalnie, nalezy miec zainstalowane Docker oraz Docker Comp
 ```bash
 docker-compose up --build
 ```
+(opcjonalnie) Załaduj `init.sql` do bazy:
+
+   ```bash
+   type .\init.sql | docker exec -i library_db psql -U postgres -d library_db
+   ```
 
 Po zakonczeniu budowania kontenerow aplikacja bedzie dostepna pod adresem [http://localhost:8080](http://localhost:8080).
-Przy pierwszym uruchomieniu baza danych zostanie zainicjowana skryptem `init.sql`.
+
 
