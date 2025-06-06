@@ -137,21 +137,4 @@ class AuthorRepository extends Repository implements AuthorRepositoryInterface
         }
         return null;
     }
-
-    
-    /**
-     * Creates a new author based on provided data.
-     * @param array $data ['first_name' => ..., 'last_name' => ...]
-     * @return Author
-     */
-    public function create(array $data) {
-        // Example using PDO:
-        $stmt = $this->db->prepare('INSERT INTO authors (first_name, last_name) VALUES (:first_name, :last_name)');
-        $stmt->execute([
-            ':first_name' => $data['first_name'],
-            ':last_name' => $data['last_name']
-        ]);
-        $id = $this->db->lastInsertId();
-        return $this->findById($id);
-    }
 }

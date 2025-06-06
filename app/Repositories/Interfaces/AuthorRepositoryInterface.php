@@ -11,5 +11,4 @@ interface AuthorRepositoryInterface
     public function update($entity);
     public function delete($id);
     public function findByName(string $fullName);
-    public function create(array $data);
 }

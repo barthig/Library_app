@@ -86,23 +86,15 @@ class BookController extends BaseController {
             header('Location: /books/create');
             exit;
         }
-
-        // Check if the author already exists by full name (e.g., "Jan Kowalski")
-        $existingAuthor = $this->authorRepo->findByName($authorName);
-        if ($existingAuthor) {
-            $authorId = $existingAuthor->getId();
-        } else {
-            // If not, create a new author (first/last name parsing can be improved)
-            [$firstName, $lastName] = explode(' ', $authorName, 2) + [1 => ''];
-            $newAuthor = $this->authorRepo->create([
-                'first_name' => $firstName,
-                'last_name'  => $lastName
-            ]);
-            $authorId = $newAuthor->getId();
+ // Ensure the selected author exists
+       if (!$author) {
+            $_SESSION['errors'] = ['Selected author does not exist.'];
+            header('Location: /books/create');
+            exit;
         }
 
         // Set author_id in the model before saving the book
-        $book->setAuthorId($authorId);
+        $book->setAuthorId($author->getId());
         $this->bookRepo->save($book);
 
         header('Location: /books');
@@ -206,23 +198,15 @@ class BookController extends BaseController {
             exit;
         }
 
-        // Check if the author exists
-        // (do not create a new author during edit, just assign the selected one)
-        $existingAuthor = $this->authorRepo->findByName($authorName);
-        if ($existingAuthor) {
-            $authorId = $existingAuthor->getId();
-        } else {
-            // If not found, create a new author
-            [$firstName, $lastName] = explode(' ', $authorName, 2) + [1 => ''];
-            $newAuthor = $this->authorRepo->create([
-                'first_name' => $firstName,
-                'last_name'  => $lastName
-            ]);
-            $authorId = $newAuthor->getId();
+         // Ensure the selected author exists
+         if (!$author) {
+            $_SESSION['errors'] = ['Selected author does not exist.'];
+            header("Location: /books/{$id}/edit");
+            exit;
         }
 
         // Set author_id before updating
-        $book->setAuthorId($authorId);
+        $book->setAuthorId($author->getId());
         $this->bookRepo->update($book);
 
         header('Location: /books');
