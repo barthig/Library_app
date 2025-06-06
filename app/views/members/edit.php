@@ -1,11 +1,11 @@
 <?php
-// Path: app/views/members/edit.php
+
 ?>
 <h1>Edit Member</h1>
 
 <?php if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'): ?>
-<p>You do not have permission to edit members.</p>
-<?php exit; ?>
+    <p>You do not have permission to edit members.</p>
+    <?php exit; ?>
 <?php endif; ?>
 
 <?php if (!empty($_SESSION['errors'])): ?>

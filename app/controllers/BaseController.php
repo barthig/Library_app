@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 class BaseController
@@ -10,7 +11,7 @@ class BaseController
         }
     }
 
-    protected function checkAuth(string $requiredRole = null): void
+    protected function checkAuth(?string $requiredRole = null): void
     {
         $this->startSessionIfNeeded();
         if (empty($_SESSION['isLogged']) || $_SESSION['isLogged'] !== true) {

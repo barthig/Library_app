@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
@@ -38,58 +39,59 @@ class Member
      * Constructor accepts explicit types or null for ID / registered_at.
      */
     public function __construct(
-    ?int $id,
-    string $first_name,
-    string $last_name,
-    string $email,
-    string $card_number,
-    string $username,
-    string $password_hash,
-    ?string $registered_at = null,
-    string $role = 'user'
-) {
-    $this->id            = $id;
-    $this->first_name    = $first_name;
-    $this->last_name     = $last_name;
-    $this->email         = $email;
-    $this->card_number   = $card_number;
-    $this->username      = $username;
-    $this->password_hash = $password_hash;
-    $this->registered_at = $registered_at;
-    $this->role          = $role;
-}
+        ?int $id,
+        string $first_name,
+        string $last_name,
+        string $email,
+        string $card_number,
+        string $username,
+        string $password_hash,
+        ?string $registered_at = null,
+        string $role = 'user'
+    ) {
+        $this->id            = $id;
+        $this->first_name    = $first_name;
+        $this->last_name     = $last_name;
+        $this->email         = $email;
+        $this->card_number   = $card_number;
+        $this->username      = $username;
+        $this->password_hash = $password_hash;
+        $this->registered_at = $registered_at;
+        $this->role          = $role;
+    }
 
 
     /**
      * Creates a Member instance from a PDO associative array.
      */
     public static function fromArray(array $data): Member
-{
-    return new self(
-        isset($data['id'])            ? (int)$data['id']            : null,
-        $data['first_name']    ?? '',
-        $data['last_name']     ?? '',
-        $data['email']         ?? '',
-        $data['card_number']   ?? '',
-        $data['username']      ?? '',
-        $data['password_hash'] ?? '',
-        $data['registered_at'] ?? null,
-        $data['role']          ?? 'user'
-    );
-}
-public function getUsername(): string
-{
-    return $this->username;
-}
+    {
+        return new self(
+            isset($data['id'])            ? (int)$data['id']            : null,
+            $data['first_name']    ?? '',
+            $data['last_name']     ?? '',
+            $data['email']         ?? '',
+            $data['card_number']   ?? '',
+            $data['username']      ?? '',
+            $data['password_hash'] ?? '',
+            $data['registered_at'] ?? null,
+            $data['role']          ?? 'user'
+        );
+    }
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
 
-public function getPasswordHash(): string
-{
-    return $this->password_hash;
-}
+    public function getPasswordHash(): string
+    {
+        return $this->password_hash;
+    }
 
-public function getRole(): string {
-    return $this->role;
-}
+    public function getRole(): string
+    {
+        return $this->role;
+    }
 
     /** @return int|null */
     public function getId(): ?int
@@ -150,7 +152,7 @@ public function getRole(): string {
     {
         $this->card_number = $card_number;
     }
-       /**
+    /**
      * Sets a new username.
      *
      * @param string $username
@@ -158,7 +160,6 @@ public function getRole(): string {
     public function setUsername(string $username): void
     {
         $this->username = $username;
-
     }
 
     /**

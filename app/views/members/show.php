@@ -1,5 +1,5 @@
 <?php
-// Path: app/views/members/show.php
+
 ?>
 <h1>Member Details</h1>
 
@@ -13,7 +13,7 @@
 
 <h2>Current Loans</h2>
 <?php
-$currentLoans = array_filter($history ?? [], function($loan) {
+$currentLoans = array_filter($history ?? [], function ($loan) {
     return !$loan->getReturnDate();
 });
 ?>
@@ -27,18 +27,18 @@ $currentLoans = array_filter($history ?? [], function($loan) {
             </tr>
         </thead>
         <tbody>
-        <?php foreach ($currentLoans as $loan): ?>
-            <tr>
-                <td>
-                    <?php
-                    $book = method_exists($loan, 'getBook') ? $loan->getBook() : null;
-                    echo $book ? htmlspecialchars($book->getTitle()) : htmlspecialchars($loan->getBookId());
-                    ?>
-                </td>
-                <td><?= htmlspecialchars($loan->getLoanDate()) ?></td>
-                <td><?= htmlspecialchars($loan->getDueDate()) ?></td>
-            </tr>
-        <?php endforeach; ?>
+            <?php foreach ($currentLoans as $loan): ?>
+                <tr>
+                    <td>
+                        <?php
+                        $book = method_exists($loan, 'getBook') ? $loan->getBook() : null;
+                        echo $book ? htmlspecialchars($book->getTitle()) : htmlspecialchars($loan->getBookId());
+                        ?>
+                    </td>
+                    <td><?= htmlspecialchars($loan->getLoanDate()) ?></td>
+                    <td><?= htmlspecialchars($loan->getDueDate()) ?></td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 <?php else: ?>
@@ -47,7 +47,7 @@ $currentLoans = array_filter($history ?? [], function($loan) {
 
 <h2>Loan History</h2>
 <?php
-$historyReturned = array_filter($history ?? [], function($loan) {
+$historyReturned = array_filter($history ?? [], function ($loan) {
     return $loan->getReturnDate();
 });
 ?>
@@ -63,20 +63,20 @@ $historyReturned = array_filter($history ?? [], function($loan) {
             </tr>
         </thead>
         <tbody>
-        <?php foreach ($historyReturned as $loan): ?>
-            <tr>
-                <td>
-                    <?php
-                    $book = method_exists($loan, 'getBook') ? $loan->getBook() : null;
-                    echo $book ? htmlspecialchars($book->getTitle()) : htmlspecialchars($loan->getBookId());
-                    ?>
-                </td>
-                <td><?= htmlspecialchars($loan->getLoanDate()) ?></td>
-                <td><?= htmlspecialchars($loan->getDueDate()) ?></td>
-                <td><?= htmlspecialchars($loan->getReturnDate()) ?></td>
-                <td><?= htmlspecialchars($loan->getFineAmount()) ?></td>
-            </tr>
-        <?php endforeach; ?>
+            <?php foreach ($historyReturned as $loan): ?>
+                <tr>
+                    <td>
+                        <?php
+                        $book = method_exists($loan, 'getBook') ? $loan->getBook() : null;
+                        echo $book ? htmlspecialchars($book->getTitle()) : htmlspecialchars($loan->getBookId());
+                        ?>
+                    </td>
+                    <td><?= htmlspecialchars($loan->getLoanDate()) ?></td>
+                    <td><?= htmlspecialchars($loan->getDueDate()) ?></td>
+                    <td><?= htmlspecialchars($loan->getReturnDate()) ?></td>
+                    <td><?= htmlspecialchars($loan->getFineAmount()) ?></td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 <?php else: ?>
@@ -84,7 +84,7 @@ $historyReturned = array_filter($history ?? [], function($loan) {
 <?php endif; ?>
 
 <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
-<!-- Add admin-specific options here -->
+    <!-- Add admin-specific options here -->
 <?php endif; ?>
 
 <p>

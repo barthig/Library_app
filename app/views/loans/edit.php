@@ -1,11 +1,11 @@
 <?php
-// Path: app/views/loans/edit.php
+
 ?>
 <h1>Edit Loan #<?= htmlspecialchars($loan->getId(), ENT_QUOTES, 'UTF-8') ?></h1>
 
 <?php if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'): ?>
-<p>You do not have permission to edit loans.</p>
-<?php exit; ?>
+    <p>You do not have permission to edit loans.</p>
+    <?php exit; ?>
 <?php endif; ?>
 
 <?php if (!empty($_SESSION['errors'])): ?>
@@ -32,4 +32,3 @@
     <button type="submit">Update</button>
 </form>
 <p><a href="/loans">Back to Loans list</a></p>
-

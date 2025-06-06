@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App;
@@ -8,21 +9,6 @@ use App\Container;
 class Router
 {
     /**
-     * Array storing all registered routes.
-     * Structure:
-     * [
-     *   'GET'  => [
-     *     '/books'                   => ['controller' => 'App\Controllers\BookController', 'action' => 'index'],
-     *     '/books/{id}/edit'         => ['controller' => 'App\Controllers\BookController', 'action' => 'editForm'],
-     *     ...
-     *   ],
-     *   'POST' => [
-     *     '/books'                   => ['controller' => 'App\Controllers\BookController', 'action' => 'store'],
-     *     '/books/{id}/delete'       => ['controller' => 'App\Controllers\BookController', 'action' => 'delete'],
-     *     ...
-     *   ]
-     * ]
-     *
      * @var array<string, array<string, array{controller:string,action:string}>>
      */
     protected static array $routes = [
@@ -111,11 +97,11 @@ class Router
                     ARRAY_FILTER_USE_KEY
                 );
 
-                $fullController = $handler['controller'];   
-                $action         = $handler['action'];      
+                $fullController = $handler['controller'];
+                $action         = $handler['action'];
 
                 // Load the controller file (assuming structure: app/controllers/<Name>.php)
-                $shortClass = substr(strrchr($fullController, '\\'), 1); 
+                $shortClass = substr(strrchr($fullController, '\\'), 1);
                 $filePath   = __DIR__ . '/controllers/' . $shortClass . '.php';
 
                 if (!file_exists($filePath)) {

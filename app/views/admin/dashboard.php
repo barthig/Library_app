@@ -7,4 +7,3 @@
         <li><a href="/loans">Manage Loans</a></li>
     </ul>
 </nav>
-

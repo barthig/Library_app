@@ -1,6 +1,9 @@
 <?php
+
 namespace App\Services;
+
 require_once __DIR__ . '/../Factories/FineStrategyFactory.php';
+
 use App\Repositories\Interfaces\LoanRepositoryInterface;
 use App\Repositories\Interfaces\BookRepositoryInterface;
 use App\Repositories\Interfaces\MemberRepositoryInterface;

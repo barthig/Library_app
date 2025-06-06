@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controllers;
@@ -27,7 +28,7 @@ class MemberController extends BaseController
     public function index(): void
     {
         $this->checkAuth();
-        
+
         $members = $this->memberRepo->findAll();
 
         // If there were flash messages in the session, pass them to the view:
@@ -280,5 +281,4 @@ class MemberController extends BaseController
         header('Location: /members');
         exit;
     }
-
 }

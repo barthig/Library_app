@@ -1,21 +1,25 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Repositories\Interfaces\AuthorRepositoryInterface;
 use App\Models\Author;
 use App\Controllers\BaseController;
 
-class AuthorController extends BaseController {
+class AuthorController extends BaseController
+{
     protected AuthorRepositoryInterface $authorRepo;
 
-    public function __construct(AuthorRepositoryInterface $authorRepo) {
+    public function __construct(AuthorRepositoryInterface $authorRepo)
+    {
         $this->authorRepo = $authorRepo;
     }
 
     /**
      * Displays a list of all authors.
      */
-    public function index() {
+    public function index()
+    {
         $this->checkAuth();
 
         $authors = $this->authorRepo->findAll();
@@ -26,7 +30,8 @@ class AuthorController extends BaseController {
     /**
      * Displays the form for adding a new author.
      */
-    public function createForm() {
+    public function createForm()
+    {
         $this->checkAuth('admin');
 
         include __DIR__ . '/../components/header.php';
@@ -36,7 +41,8 @@ class AuthorController extends BaseController {
     /**
      * Saves the new author.
      */
-    public function store() {
+    public function store()
+    {
         $this->checkAuth('admin');
 
         $firstName = filter_input(INPUT_POST, 'first_name', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -52,7 +58,7 @@ class AuthorController extends BaseController {
         ]);
 
         // Assume Author performs its own validation (e.g., name is not empty)
-        $errors = []; 
+        $errors = [];
         if (empty($firstName) || empty($lastName)) {
             $errors[] = "First name and last name are required.";
         }
@@ -70,7 +76,8 @@ class AuthorController extends BaseController {
     /**
      * Displays the author edit form.
      */
-    public function editForm($id) {
+    public function editForm($id)
+    {
         $this->checkAuth('admin');
 
         $author = $this->authorRepo->findById($id);
@@ -86,7 +93,8 @@ class AuthorController extends BaseController {
     /**
      * Updates the author data.
      */
-    public function update($id) {
+    public function update($id)
+    {
         $this->checkAuth('admin');
 
         $author = $this->authorRepo->findById($id);
@@ -119,7 +127,8 @@ class AuthorController extends BaseController {
     /**
      * Deletes an author.
      */
-    public function delete($id) {
+    public function delete($id)
+    {
         $this->checkAuth('admin');
 
         $this->authorRepo->delete($id);

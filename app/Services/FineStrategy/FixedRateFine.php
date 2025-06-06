@@ -1,5 +1,5 @@
 <?php
-// Path: app/Services/FineStrategy/FixedRateFine.php
+
 namespace App\Services\FineStrategy;
 
 class FixedRateFine implements FineStrategyInterface

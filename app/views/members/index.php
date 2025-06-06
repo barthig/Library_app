@@ -1,5 +1,5 @@
 <?php
-// Path: app/views/members/index.php
+
 ?>
 <h1>Members</h1>
 
@@ -19,40 +19,40 @@
 <?php endif; ?>
 
 <?php if (!empty($members)): ?>
-<table>
-    <thead>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Card Number</th>
-            <th>Registered</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($members as $member): ?>
-        <tr>
-            <td><?= htmlspecialchars($member->getFirstName()) ?></td>
-            <td><?= htmlspecialchars($member->getLastName()) ?></td>
-            <td><?= htmlspecialchars($member->getEmail()) ?></td>
-            <td><?= htmlspecialchars($member->getCardNumber()) ?></td>
-            <td><?= htmlspecialchars($member->getRegisteredAt()) ?></td>
-            <td>
-                <a href="/members/<?= $member->getId() ?>">Details</a>
-                <!-- Restrict edit and delete options to admin users -->
-                <?php if (isset($_SESSION['isLogged']) && $_SESSION['isLogged'] && isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
-                    <a href="/members/<?= $member->getId() ?>/edit">Edit</a>
-                    <form action="/members/<?= $member->getId() ?>/delete" method="post" style="display:inline">
-                        <button type="submit" onclick="return confirm('Delete this member?')">Delete</button>
-                    </form>
-                <?php endif; ?>
-            </td>
-        </tr>
-    <?php endforeach; ?>
-    </tbody>
+    <table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Card Number</th>
+                <th>Registered</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($members as $member): ?>
+                <tr>
+                    <td><?= htmlspecialchars($member->getFirstName()) ?></td>
+                    <td><?= htmlspecialchars($member->getLastName()) ?></td>
+                    <td><?= htmlspecialchars($member->getEmail()) ?></td>
+                    <td><?= htmlspecialchars($member->getCardNumber()) ?></td>
+                    <td><?= htmlspecialchars($member->getRegisteredAt()) ?></td>
+                    <td>
+                        <a href="/members/<?= $member->getId() ?>">Details</a>
+                        <!-- Restrict edit and delete options to admin users -->
+                        <?php if (isset($_SESSION['isLogged']) && $_SESSION['isLogged'] && isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                            <a href="/members/<?= $member->getId() ?>/edit">Edit</a>
+                            <form action="/members/<?= $member->getId() ?>/delete" method="post" style="display:inline">
+                                <button type="submit" onclick="return confirm('Delete this member?')">Delete</button>
+                            </form>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
 
-</table>
+    </table>
 <?php else: ?>
     <p class="no-data">No members found.</p>
 <?php endif; ?>

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories;
 
 use App\Models\Author;
@@ -124,7 +125,8 @@ class AuthorRepository extends Repository implements AuthorRepositoryInterface
         $stmt->execute(['id' => $id]);
     }
 
-    public function findByName(string $fullName) {
+    public function findByName(string $fullName)
+    {
         [$firstName, $lastName] = explode(' ', $fullName, 2) + [1 => ''];
         $stmt = $this->db->prepare('SELECT * FROM authors WHERE first_name = :first_name AND last_name = :last_name');
         $stmt->execute([

@@ -1,12 +1,10 @@
 <?php
-// Path: app/views/loans/return.php
-// Assume session_start() has been called earlier (e.g., in bootstrap)
-// and optionally a CSRF token has been generated/verified in $_SESSION['csrf_token'].
+
 ?>
 
 <?php if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'): ?>
-<p>You do not have permission to access this page.</p>
-<?php exit; ?>
+    <p>You do not have permission to access this page.</p>
+    <?php exit; ?>
 <?php endif; ?>
 
 <h1>Return Loan #<?= htmlspecialchars($loan->getId(), ENT_QUOTES, 'UTF-8') ?></h1>
@@ -41,8 +39,7 @@
             id="return_date"
             name="return_date"
             required
-            value="<?= date('Y-m-d') ?>"
-        >
+            value="<?= date('Y-m-d') ?>">
     </label>
     <br><br>
 

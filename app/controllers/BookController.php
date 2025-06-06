@@ -1,16 +1,22 @@
 <?php
+
 namespace App\Controllers;
+
 use App\Repositories\Interfaces\BookRepositoryInterface;
 use App\Repositories\Interfaces\AuthorRepositoryInterface;
+
 require_once __DIR__ . '/../factories/BookFactory.php';
+
 use App\Factories\BookFactory;
 use App\Controllers\BaseController;
 
-class BookController extends BaseController {
+class BookController extends BaseController
+{
     protected BookRepositoryInterface $bookRepo;
     protected AuthorRepositoryInterface $authorRepo;
 
-    public function __construct(BookRepositoryInterface $bookRepo, AuthorRepositoryInterface $authorRepo) {
+    public function __construct(BookRepositoryInterface $bookRepo, AuthorRepositoryInterface $authorRepo)
+    {
         $this->bookRepo   = $bookRepo;
         $this->authorRepo = $authorRepo;
     }
@@ -18,7 +24,8 @@ class BookController extends BaseController {
     /**
      * Displays a list of all books.
      */
-    public function index() {
+    public function index()
+    {
         $this->checkAuth();
 
         $books = $this->bookRepo->findAll();
@@ -40,7 +47,8 @@ class BookController extends BaseController {
     /**
      * Shows the form for adding a new book.
      */
-    public function createForm() {
+    public function createForm()
+    {
         $this->checkAuth('admin');
 
         // Retrieve all authors and pass them to the view
@@ -52,7 +60,8 @@ class BookController extends BaseController {
     /**
      * Saves a new book to the database.
      */
-    public function store() {
+    public function store()
+    {
         $this->checkAuth('admin');
 
         $title       = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -86,8 +95,8 @@ class BookController extends BaseController {
             header('Location: /books/create');
             exit;
         }
- // Ensure the selected author exists
-       if (!$author) {
+        // Ensure the selected author exists
+        if (!$author) {
             $_SESSION['errors'] = ['Selected author does not exist.'];
             header('Location: /books/create');
             exit;
@@ -104,7 +113,8 @@ class BookController extends BaseController {
     /**
      * Shows details of a single book.
      */
-    public function show(int $bookId) {
+    public function show(int $bookId)
+    {
         $this->checkAuth();
 
         $book = $this->bookRepo->findById($bookId);
@@ -129,7 +139,8 @@ class BookController extends BaseController {
     /**
      * Shows the edit form for an existing book.
      */
-    public function editForm(int $id) {
+    public function editForm(int $id)
+    {
         $this->checkAuth('admin');
 
         $book = $this->bookRepo->findById($id);
@@ -156,7 +167,8 @@ class BookController extends BaseController {
     /**
      * Updates the book with the given ID.
      */
-    public function update(int $id) {
+    public function update(int $id)
+    {
         $this->checkAuth('admin');
 
         $title       = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -198,8 +210,8 @@ class BookController extends BaseController {
             exit;
         }
 
-         // Ensure the selected author exists
-         if (!$author) {
+        // Ensure the selected author exists
+        if (!$author) {
             $_SESSION['errors'] = ['Selected author does not exist.'];
             header("Location: /books/{$id}/edit");
             exit;
@@ -216,7 +228,8 @@ class BookController extends BaseController {
     /**
      * Deletes a book.
      */
-    public function delete(int $id) {
+    public function delete(int $id)
+    {
         $this->checkAuth('admin');
 
         $this->bookRepo->delete($id);

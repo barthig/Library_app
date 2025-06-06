@@ -1,5 +1,5 @@
 <?php
-// Path: app/views/books/show.php
+
 ?>
 
 <h1>Book Details</h1>
@@ -14,8 +14,8 @@
 
 <p>
     <a href="/books/<?= urlencode($book->getId()) ?>/edit">Edit</a> |
-    <form action="/books/<?= urlencode($book->getId()) ?>/delete" method="post" style="display:inline;">
-        <button type="submit" onclick="return confirm('Are you sure you want to delete this book?');">Delete</button>
-    </form> |
-    <a href="/books">Back to list</a>
+<form action="/books/<?= urlencode($book->getId()) ?>/delete" method="post" style="display:inline;">
+    <button type="submit" onclick="return confirm('Are you sure you want to delete this book?');">Delete</button>
+</form> |
+<a href="/books">Back to list</a>
 </p>

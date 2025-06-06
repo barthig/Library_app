@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controllers;
@@ -142,7 +143,7 @@ class AuthController
         $email      = trim((string) ($_POST['email']       ?? ''));
         $username   = trim((string) ($_POST['username']    ?? ''));
         $plainPass  = (string) ($_POST['password']        ?? '');
-        $plainRepeat= (string) ($_POST['password_repeat'] ?? '');
+        $plainRepeat = (string) ($_POST['password_repeat'] ?? '');
 
         $_SESSION['old_input'] = [
             'first_name'  => $firstName,
@@ -152,14 +153,30 @@ class AuthController
         ];
 
         $errors = [];
-        if ($firstName === '') { $errors[] = 'First name is required.'; }
-        if ($lastName  === '') { $errors[] = 'Last name is required.'; }
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { $errors[] = 'A valid email is required.'; }
-        if ($username   === '') { $errors[] = 'Username is required.'; }
-        if ($plainPass  === '') { $errors[] = 'Password is required.'; }
-        if ($plainPass !== $plainRepeat) { $errors[] = 'Passwords do not match.'; }
-        if ($this->memberRepo->existsByEmail($email)) { $errors[] = 'Email is already taken.'; }
-        if ($this->memberRepo->existsByUsername($username)) { $errors[] = 'Username is already taken.'; }
+        if ($firstName === '') {
+            $errors[] = 'First name is required.';
+        }
+        if ($lastName  === '') {
+            $errors[] = 'Last name is required.';
+        }
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errors[] = 'A valid email is required.';
+        }
+        if ($username   === '') {
+            $errors[] = 'Username is required.';
+        }
+        if ($plainPass  === '') {
+            $errors[] = 'Password is required.';
+        }
+        if ($plainPass !== $plainRepeat) {
+            $errors[] = 'Passwords do not match.';
+        }
+        if ($this->memberRepo->existsByEmail($email)) {
+            $errors[] = 'Email is already taken.';
+        }
+        if ($this->memberRepo->existsByUsername($username)) {
+            $errors[] = 'Username is already taken.';
+        }
 
         if (!empty($errors)) {
             $_SESSION['errors'] = $errors;

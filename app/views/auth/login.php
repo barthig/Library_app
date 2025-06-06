@@ -1,7 +1,5 @@
 <?php
-// views/auth/login.php
 
-// Check if any session error messages exist (e.g., failed validation)
 if (isset($_SESSION['error'])) {
     echo '<div class="alert alert-danger">' . htmlspecialchars($_SESSION['error']) . '</div>';
     unset($_SESSION['error']);
@@ -23,8 +21,8 @@ if (isset($_SESSION['error'])) {
                 placeholder="Enter your username"
                 required
                 value="<?php echo isset(
-                    $old['username']) ? htmlspecialchars($old['username']) : ''; ?>"
-            >
+                            $old['username']
+                        ) ? htmlspecialchars($old['username']) : ''; ?>">
         </div>
 
         <div class="form-group mb-3">
@@ -35,8 +33,7 @@ if (isset($_SESSION['error'])) {
                 name="password"
                 class="form-control"
                 placeholder="Enter your password"
-                required
-            >
+                required>
         </div>
 
         <div class="form-check mb-3">
@@ -45,8 +42,7 @@ if (isset($_SESSION['error'])) {
                 id="remember"
                 name="remember"
                 class="form-check-input"
-                <?php echo isset($old['remember']) ? 'checked' : ''; ?>
-            >
+                <?php echo isset($old['remember']) ? 'checked' : ''; ?>>
             <label class="form-check-label" for="remember">Remember me</label>
         </div>
 

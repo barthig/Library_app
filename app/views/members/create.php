@@ -1,11 +1,11 @@
 <?php
-// Path: app/views/members/create.php
+
 ?>
 <h1>Add New Member</h1>
 
 <?php if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'): ?>
-<p>You do not have permission to add new members.</p>
-<?php exit; ?>
+    <p>You do not have permission to add new members.</p>
+    <?php exit; ?>
 <?php endif; ?>
 
 <?php if (!empty($_SESSION['errors'])): ?>
@@ -41,5 +41,5 @@
     <button type="submit">Save</button>
 </form>
 <p>
-        <a href="/members">Back to member list</a>
-    </p>
+    <a href="/members">Back to member list</a>
+</p>

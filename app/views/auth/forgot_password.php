@@ -1,5 +1,5 @@
 <?php
-// views/auth/forgot_password.php
+
 ?>
 <link rel="stylesheet" href="/styles.css">
 <div class="container mt-5" style="max-width: 400px;">

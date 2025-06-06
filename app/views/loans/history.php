@@ -1,5 +1,5 @@
 <?php
-// Path: app/views/loans/history.php
+
 ?>
 <h1>Loan History for <?= htmlspecialchars($member->getFirstName() . ' ' . $member->getLastName()) ?></h1>
 
@@ -14,35 +14,35 @@
         </tr>
     </thead>
     <tbody>
-    <?php if (!empty($history)): ?>
-        <?php foreach ($history as $loan): ?>
+        <?php if (!empty($history)): ?>
+            <?php foreach ($history as $loan): ?>
+                <tr>
+                    <td>
+                        <?= htmlspecialchars($loan->getBookId()) ?>
+                    </td>
+                    <td>
+                        <?= htmlspecialchars($loan->getLoanDate()) ?>
+                    </td>
+                    <td>
+                        <?= htmlspecialchars($loan->getDueDate()) ?>
+                    </td>
+                    <td>
+                        <?= $loan->getReturnDate()
+                            ? htmlspecialchars($loan->getReturnDate())
+                            : '-' ?>
+                    </td>
+                    <td>
+                        <?= $loan->getFineAmount() !== null
+                            ? number_format($loan->getFineAmount(), 2)
+                            : '0.00' ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
             <tr>
-                <td>
-                    <?= htmlspecialchars($loan->getBookId()) ?>
-                </td>
-                <td>
-                    <?= htmlspecialchars($loan->getLoanDate()) ?>
-                </td>
-                <td>
-                    <?= htmlspecialchars($loan->getDueDate()) ?>
-                </td>
-                <td>
-                    <?= $loan->getReturnDate()
-                        ? htmlspecialchars($loan->getReturnDate())
-                        : '-' ?>
-                </td>
-                <td>
-                    <?= $loan->getFineAmount() !== null
-                        ? number_format($loan->getFineAmount(), 2)
-                        : '0.00' ?>
-                </td>
+                <td colspan="5">No history found.</td>
             </tr>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <tr>
-            <td colspan="5">No history found.</td>
-        </tr>
-    <?php endif; ?>
+        <?php endif; ?>
     </tbody>
 </table>
 <p>

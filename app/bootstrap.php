@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 require_once __DIR__ . '/models/Database.php';
@@ -14,7 +15,7 @@ require_once __DIR__ . '/repositories/Interfaces/AuthorRepositoryInterface.php';
 require_once __DIR__ . '/repositories/Interfaces/MemberRepositoryInterface.php';
 require_once __DIR__ . '/repositories/Interfaces/LoanRepositoryInterface.php';
 require_once __DIR__ . '/Repositories/MemberRepository.php';
-require_once __DIR__ . '/Repositories/BookRepository.php'; 
+require_once __DIR__ . '/Repositories/BookRepository.php';
 require_once __DIR__ . '/Repositories/AuthorRepository.php';
 require_once __DIR__ . '/Repositories/LoanRepository.php';
 require_once __DIR__ . '/controllers/BaseController.php';
@@ -35,12 +36,10 @@ Container::bind(AuthorRepositoryInterface::class, fn() => new AuthorRepository()
 Container::bind(BookRepositoryInterface::class, fn() => new BookRepository());
 Container::bind(MemberRepositoryInterface::class, fn() => new MemberRepository());
 Container::bind(LoanRepositoryInterface::class, fn() => new LoanRepository());
-Container::bind(LoanService::class, function() {
+Container::bind(LoanService::class, function () {
     return new LoanService(
         Container::get(LoanRepositoryInterface::class),
         Container::get(BookRepositoryInterface::class),
         Container::get(MemberRepositoryInterface::class)
     );
 });
-
-

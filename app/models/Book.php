@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Models;
 
-class Book {
+class Book
+{
     private ?int $id;
     private string $title;
     private string $isbn;
@@ -16,7 +18,8 @@ class Book {
      */
     private ?string $authorName = null;
 
-    public function __construct(array $data = []) {
+    public function __construct(array $data = [])
+    {
         $this->id = isset($data['id']) && is_numeric($data['id']) ? (int)$data['id'] : null;
         $this->title = $data['title'] ?? '';
         $this->isbn = $data['isbn'] ?? '';
@@ -40,33 +43,75 @@ class Book {
     }
 
     // Gettery
-    public function getId(): ?int { return $this->id; }
-    public function getTitle(): string { return $this->title; }
-    public function getIsbn(): string { return $this->isbn; }
-    public function getPublicationYear(): ?int { return $this->publication_year; }
-    public function getAuthorId(): ?int { return $this->author_id; }
-    public function getTotalCopies(): int { return $this->total_copies; }
-    public function getAvailableCopies(): int { return $this->available_copies; }
-    public function getAuthorName(): ?string { return $this->authorName; }
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+    public function getIsbn(): string
+    {
+        return $this->isbn;
+    }
+    public function getPublicationYear(): ?int
+    {
+        return $this->publication_year;
+    }
+    public function getAuthorId(): ?int
+    {
+        return $this->author_id;
+    }
+    public function getTotalCopies(): int
+    {
+        return $this->total_copies;
+    }
+    public function getAvailableCopies(): int
+    {
+        return $this->available_copies;
+    }
+    public function getAuthorName(): ?string
+    {
+        return $this->authorName;
+    }
 
     // Settery
-    public function setId(?int $id): void { $this->id = $id; }
-    public function setTitle(string $title): void { $this->title = $title; }
-    public function setIsbn(string $isbn): void { $this->isbn = $isbn; }
-    public function setPublicationYear(?int $year): void { $this->publication_year = $year; }
-    public function setAuthorId(?int $authorId): void { $this->author_id = $authorId; }
-    public function setTotalCopies(int $total): void { 
-        $this->total_copies = $total; 
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
+    }
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+    public function setIsbn(string $isbn): void
+    {
+        $this->isbn = $isbn;
+    }
+    public function setPublicationYear(?int $year): void
+    {
+        $this->publication_year = $year;
+    }
+    public function setAuthorId(?int $authorId): void
+    {
+        $this->author_id = $authorId;
+    }
+    public function setTotalCopies(int $total): void
+    {
+        $this->total_copies = $total;
         // If available_copies was higher than the new total, adjust it:
         if ($this->available_copies > $this->total_copies) {
             $this->available_copies = $this->total_copies;
         }
     }
-    public function setAvailableCopies(int $available): void { 
-        $this->available_copies = $available; 
+    public function setAvailableCopies(int $available): void
+    {
+        $this->available_copies = $available;
     }
-    public function setAuthorName(?string $authorName): void { 
-        $this->authorName = $authorName !== null ? trim($authorName) : null; 
+    public function setAuthorName(?string $authorName): void
+    {
+        $this->authorName = $authorName !== null ? trim($authorName) : null;
     }
 
     /**
@@ -75,7 +120,8 @@ class Book {
      * and validates the remaining required fields.
      * Returns an array of error messages (empty if everything is OK).
      */
-    public function validate(): array {
+    public function validate(): array
+    {
         $errors = [];
 
         if (trim($this->title) === '') {
@@ -103,8 +149,10 @@ class Book {
             $errors[] = "Available copies cannot be negative.";
         }
 
-        if (is_int($this->available_copies) && is_int($this->total_copies) 
-            && $this->available_copies > $this->total_copies) {
+        if (
+            is_int($this->available_copies) && is_int($this->total_copies)
+            && $this->available_copies > $this->total_copies
+        ) {
             $errors[] = "Available copies cannot exceed total copies.";
         }
 

@@ -1,5 +1,5 @@
 <?php
-// Path: app/views/authors/create.php
+
 ?>
 
 <h1>Add New Author</h1>
@@ -31,5 +31,5 @@
     <button type="submit">Save</button>
 </form>
 <p>
-        <a href="/authors">Back to authors list</a>
-    </p>
+    <a href="/authors">Back to authors list</a>
+</p>

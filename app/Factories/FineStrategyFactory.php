@@ -1,5 +1,5 @@
 <?php
-// Path: app/Factories/FineStrategyFactory.php
+
 namespace App\Factories;
 
 require_once __DIR__ . '/../Services/FineStrategy/FineStrategyInterface.php';

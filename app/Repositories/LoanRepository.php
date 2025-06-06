@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories;
 
 use App\Models\Loan;
@@ -160,5 +161,4 @@ class LoanRepository extends Repository implements LoanRepositoryInterface
         $stmt = $this->db->prepare('DELETE FROM loans WHERE id = :id');
         $stmt->execute(['id' => $id]);
     }
-
 }

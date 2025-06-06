@@ -1,5 +1,5 @@
 <?php
-// Path: app/Services/FineStrategy/FineStrategyInterface.php
+
 namespace App\Services\FineStrategy;
 
 interface FineStrategyInterface

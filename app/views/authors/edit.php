@@ -1,5 +1,5 @@
 <?php
-// Path: app/views/authors/edit.php
+
 ?>
 
 <h1>Edit Author</h1>

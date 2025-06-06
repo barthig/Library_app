@@ -1,5 +1,5 @@
 <?php
-// Path: app/views/loans/create.php
+
 ?>
 
 <h1>Create Loan</h1>
@@ -48,13 +48,11 @@
             type="date"
             name="due_date"
             required
-            value="<?= date('Y-m-d', strtotime('+14 days')) ?>"
-        >
+            value="<?= date('Y-m-d', strtotime('+14 days')) ?>">
     </label><br>
 
     <button type="submit">Create</button>
 </form>
 <p>
-        <a href="/loans">Back to loan list</a>
-    </p>
-
+    <a href="/loans">Back to loan list</a>
+</p>

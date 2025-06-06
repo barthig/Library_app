@@ -1,5 +1,5 @@
 <?php
-// Path: app/factories/BookFactory.php
+
 namespace App\Factories;
 
 use App\Models\Book;

@@ -1,12 +1,15 @@
 <?php
+
 namespace App\Repositories;
 
 require_once __DIR__ . '/../models/Database.php';
 
-abstract class Repository {
+abstract class Repository
+{
     protected $db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->db = \App\Models\Database::getConnection();
     }
 
