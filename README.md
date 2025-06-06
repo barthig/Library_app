@@ -17,17 +17,16 @@ System został zrealizowany w oparciu o wzorce projektowe i architektoniczne pro
    - Dodawanie nowej książki: tytuł, autor, rok wydania, liczba egzemplarzy.  
    - Edycja danych książki (np. zmiana liczby egzemplarzy lub informacji o wydaniu).  
    - Usuwanie książek (jeśli nie są aktualnie wypożyczone).  
-   - Przeglądanie listy wszystkich książek (filtracja i sortowanie według tytułu, autora lub roku wydania).  
+   - Przeglądanie listy wszystkich książek. 
    - Dodawanie i edycja danych autorów (imię, nazwisko, ewentualnie biografia).
 
 2. **Rejestracja i obsługa czytelników (członków biblioteki)**  
-   - Rejestracja nowego czytelnika: imię, nazwisko, PESEL lub inny identyfikator, adres e-mail.  
-   - Edycja danych czytelnika (aktualizacja adresu e-mail, zmiana danych kontaktowych).  
-   - Przeglądanie listy czytelników oraz szczegółów konkretnego konta (wypożyczenia w toku, historia kar).
+   - Rejestracja nowego czytelnika.  
+   - Edycja danych czytelnika.  
+   - Przeglądanie listy czytelników oraz szczegółów konkretnego konta.
 
 3. **Proces wypożyczeń**  
-   - Tworzenie wypożyczenia: wybór czytelnika oraz dostępnej książki.  
-   - Ograniczenie liczby jednoczesnych wypożyczeń według ustalonego limitu (np. max 5 książek na czytelnika).  
+   - Tworzenie wypożyczenia: wybór czytelnika oraz dostępnej książki.
    - Automatyczne sprawdzenie dostępności egzemplarzy (jeśli wszystkie egzemplarze są wypożyczone, system uniemożliwia kolejne wypożyczenia danego tytułu).  
    - Generowanie informacji o dacie zwrotu (np. 30 dni od daty wypożyczenia).
 
@@ -40,14 +39,11 @@ System został zrealizowany w oparciu o wzorce projektowe i architektoniczne pro
    - Rejestracja i podgląd aktualnej kwoty zadłużenia czytelnika.
 
 5. **Historia wypożyczeń i raporty**  
-   - Wyświetlanie pełnej historii wypożyczeń dla konkretnego czytelnika lub dla całej biblioteki.  
-   - Podsumowanie aktualnych zaległości (lista czytelników z nieuregulowanymi karami).  
-   - Prosty raport: lista książek najczęściej wypożyczanych w wybranym przedziale czasowym.
+   - Wyświetlanie pełnej historii wypożyczeń dla konkretnego czytelnika lub dla całej biblioteki.
 
 6. **Interfejs webowy (widoki)**  
    - Strona główna z odnośnikami do modułów: Książki, Czytelnicy, Wypożyczenia.  
    - Formularze dodawania/edycji (książka, czytelnik, wypożyczenie).  
-   - Responsywny układ bazujący na prostym arkuszu stylów CSS, umożliwiający podstawowe filtrowanie i sortowanie danych.
 
 ---
 
@@ -58,11 +54,11 @@ System został zaimplementowany w języku PHP 8.x z użyciem prostego frameworka
 - **Klasy encji**:  
   - `Book` – reprezentuje książkę (pola: id, tytuł, autor_id, rok_wydania, liczba_egzemplarzy).  
   - `Author` – reprezentuje autora (pola: id, imię, nazwisko).  
-  - `Member` – reprezentuje czytelnika (pola: id, imię, nazwisko, pesel, email).  
+  - `Member` – reprezentuje czytelnika (pola: id, imię, nazwisko,email).  
   - `Loan` – reprezentuje wypożyczenie (pola: id, member_id, book_id, data_wypożyczenia, data_zwrotu, kara).
 
 - **Klasa `Database`** (Singleton lub poprzez kontener DI):  
-  - Zapewnia pojedyncze połączenie PDO z bazą PostgreSQL (parametry połączenia pobierane z pliku `.env` lub stałych w kodzie).  
+  - Zapewnia pojedyncze połączenie PDO z bazą PostgreSQL.  
   - Metody do przygotowywania i wykonywania zapytań SQL.
 
 ### 3.2. Warstwa dostępu do danych (Repository)
@@ -73,7 +69,7 @@ System został zaimplementowany w języku PHP 8.x z użyciem prostego frameworka
 
 ### 3.3. Warstwa logiki aplikacji (Controller / Service)
 - **Kontrolery**:  
-  - `BookController` – odpowiada za żądania związane z książkami (lista, dodawanie, edycja, usuwanie, szczegóły).  
+  - `BookController` – odpowiada za żądania związane z książkami.  
   - `MemberController` – obsługuje rejestrację, edycję i podgląd czytelników.  
   - `LoanController` – zarządza wypożyczeniami: tworzenie nowego wypożyczenia, zwrot, wyświetlenie historii.  
   - `HomeController` – przekierowuje do modułów i generuje widok główny.
@@ -85,7 +81,7 @@ System został zaimplementowany w języku PHP 8.x z użyciem prostego frameworka
 
 - **Fabryki i strategie**:  
   - `BookFactory` – odpowiedzialna za tworzenie instancji `Book` na podstawie danych formularza (walidacja, ustawienie pól domyślnych).  
-  - `FineStrategyFactory` – zwraca odpowiednią klasę strategii obliczania kary (`FixedFineStrategy`, `PercentageFineStrategy`, `IncreasingFineStrategy`).  
+  - `FineStrategyFactory` – zwraca odpowiednią klasę strategii obliczania kary.  
   - Każda strategia implementuje wspólny interfejs (`FineStrategyInterface`).
 
 ### 3.4. Warstwa prezentacji (View)
@@ -107,7 +103,7 @@ System został zaimplementowany w języku PHP 8.x z użyciem prostego frameworka
    - `BookFactory` i `FineStrategyFactory` upraszczają tworzenie obiektów, centralizują walidację i reguły inicjalizacji.
 
 4. **Strategy Pattern**  
-   - Różne algorytmy naliczania kar (stała, procentowa, rosnąca) są enkapsulowane w odrębnych klasach.  
+   - Różne algorytmy naliczania kar są enkapsulowane w odrębnych klasach.  
    - `FineStrategyFactory` wybiera strategię w zależności od parametrów wypożyczenia.
 
 5. **Dependency Injection**  
@@ -135,7 +131,7 @@ Projekt jest podzielony na kilka głównych katalogów:
 W katalogu `docs/uml.svg` znajduje się pełny diagram UML obrazujący relacje pomiędzy klasami:
 - Relacje dziedziczenia:  
   - `BookRepository` dziedziczy po `Repository`.  
-  - Klasy strategii naliczania kar (`FixedFineStrategy`, `PercentageFineStrategy`, `IncreasingFineStrategy`) implementują `FineStrategyInterface`.  
+  - Klasy strategii naliczania kar implementują `FineStrategyInterface`.  
 - Relacje asocjacji:  
   - `Loan` posiada pola `member_id` oraz `book_id`, wskazujące powiązania z encjami `Member` i `Book`.  
   - `Book` jest powiązany z `Author` poprzez `author_id`.  
