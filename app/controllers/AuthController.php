@@ -79,7 +79,7 @@ class AuthController
         if ($member->getRole() === 'admin') {
             header('Location: /admin');
         } else {
-            header('Location: /books');
+            header('Location: /');
         }
         exit;
     }

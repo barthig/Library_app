@@ -212,4 +212,15 @@ class LoanController extends BaseController
         include __DIR__ . '/../components/header.php';
         include __DIR__ . '/../views/loans/history.php';
     }
+     /**
+     * Deletes a loan record.
+     */
+    public function delete(int $loanId)
+    {
+        $this->checkAuth('admin');
+
+        $this->loanRepo->delete($loanId);
+        header('Location: /loans');
+        exit;
+    }
 }

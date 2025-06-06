@@ -53,6 +53,7 @@ Router::get('/loans/{loanId}/return',     'App\Controllers\LoanController', 'ret
 Router::post('/loans/{loanId}/return',    'App\Controllers\LoanController', 'returnLoan');
 Router::get('/loans/{loanId}/edit',       'App\Controllers\LoanController', 'editForm');
 Router::post('/loans/{loanId}/edit',      'App\Controllers\LoanController', 'update');
+Router::post('/loans/{loanId}/delete',    'App\Controllers\LoanController', 'delete');
 Router::get('/loans/history/{memberId}',  'App\Controllers\LoanController', 'history');
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
